@@ -1,0 +1,9 @@
+<a th:fragment="paging(pageNum, label, tooltip)" class="page-link"
+   th:href="@{'/vehiculos?' + ${marca!=null && marca!=''? 'marca=' + marca + '&' : ''}
+                            + ${modelo!=null && modelo!=''? 'modelo=' + modelo + '&' : ''}
+                            + ${matricula!=null && matricula!=''? 'matricula=' + matricula + '&' : ''}
+                           + 'page=' + ${pageNum} + '&size=' + ${pageSize}
+                           + ${sortField!=null ? '&sort=' + sortField + ',' + sortDirection : ''}}"
+   th:title="${tooltip}" rel="tooltip" xmlns:th="http://www.w3.org/1999/xhtml">
+    [[${label}]]
+</a>

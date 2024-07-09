@@ -1,0 +1,10 @@
+<th scope="col" th:fragment="sorting(field, label)" xmlns:th="http://www.w3.org/1999/xhtml">
+    <a class="title-table" th:href="@{'/vehiculos?' + ${marca!=null && marca!=''? 'marca=' + marca + '&' : ''}
+                + ${modelo!=null && modelo!=''? 'modelo=' + modelo + '&' : ''}
+                + ${matricula!=null && matricula!=''? 'matricula=' + matricula + '&' : ''}
+                + 'page=' + ${currentPage} + '&size=' + ${pageSize}
+                + ${sortField!=null ? '&sort=' + field + ',' + (sortField == field ? reverseSortDirection : sortDirection) : ''}}">
+        [[${label}]] </a>
+    <span th:if="${sortField == field}"
+          th:class="${sortDirection == 'asc' ? 'fas fa-arrow-down-short-wide' : 'fas fa-arrow-down-wide-short'}"></span>
+</th>

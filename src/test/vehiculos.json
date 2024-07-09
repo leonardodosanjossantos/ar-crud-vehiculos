@@ -1,0 +1,254 @@
+[
+  {
+    "marca": "Toyota",
+    "modelo": "Corolla",
+    "matricula": "GDP-9034",
+    "color": "Rojo",
+    "ano": 2019
+  },
+  {
+    "marca": "Toyota",
+    "modelo": "Camry",
+    "matricula": "JHY-2378",
+    "color": "Negro",
+    "ano": 2020
+  },
+  {
+    "marca": "Toyota",
+    "modelo": "Camry",
+    "matricula": "WQK-4821",
+    "color": "Blanco",
+    "ano": 2020
+  },
+  {
+    "marca": "Toyota",
+    "modelo": "Camry",
+    "matricula": "PLM-5482",
+    "color": "Azul",
+    "ano": 2020
+  },
+  {
+    "marca": "Toyota",
+    "modelo": "Camry",
+    "matricula": "XZR-2910",
+    "color": "Rojo",
+    "ano": 2020
+  },
+  {
+    "marca": "Toyota",
+    "modelo": "Corolla",
+    "matricula": "MBV-6318",
+    "color": "Gris",
+    "ano": 2020
+  },
+  {
+    "marca": "Ford",
+    "modelo": "Mustang",
+    "matricula": "YTH-8743",
+    "color": "Negro",
+    "ano": 2020
+  },
+  {
+    "marca": "Ford",
+    "modelo": "Focus",
+    "matricula": "KJE-5271",
+    "color": "Negro",
+    "ano": 2019
+  },
+  {
+    "marca": "Ford",
+    "modelo": "Focus",
+    "matricula": "AZN-3942",
+    "color": "Blanco",
+    "ano": 2019
+  },
+  {
+    "marca": "Ford",
+    "modelo": "Focus",
+    "matricula": "QWR-6834",
+    "color": "Azul",
+    "ano": 2019
+  },
+  {
+    "marca": "Ford",
+    "modelo": "Focus",
+    "matricula": "TXM-2940",
+    "color": "Rojo",
+    "ano": 2019
+  },
+  {
+    "marca": "Ford",
+    "modelo": "Mustang",
+    "matricula": "LKP-1902",
+    "color": "Gris",
+    "ano": 2019
+  },
+  {
+    "marca": "Honda",
+    "modelo": "Civic",
+    "matricula": "WLF-3816",
+    "color": "Azul",
+    "ano": 2018
+  },
+  {
+    "marca": "Honda",
+    "modelo": "Accord",
+    "matricula": "YVN-7483",
+    "color": "Negro",
+    "ano": 2021
+  },
+  {
+    "marca": "Honda",
+    "modelo": "Accord",
+    "matricula": "MKS-2745",
+    "color": "Blanco",
+    "ano": 2021
+  },
+  {
+    "marca": "Honda",
+    "modelo": "Accord",
+    "matricula": "ZRP-4638",
+    "color": "Azul",
+    "ano": 2021
+  },
+  {
+    "marca": "Honda",
+    "modelo": "Accord",
+    "matricula": "BJQ-6283",
+    "color": "Rojo",
+    "ano": 2021
+  },
+  {
+    "marca": "Honda",
+    "modelo": "Civic",
+    "matricula": "HQL-7832",
+    "color": "Gris",
+    "ano": 2021
+  },
+  {
+    "marca": "Chevrolet",
+    "modelo": "Malibu",
+    "matricula": "TRK-9201",
+    "color": "Blanco",
+    "ano": 2017
+  },
+  {
+    "marca": "Chevrolet",
+    "modelo": "Impala",
+    "matricula": "BVN-3812",
+    "color": "Negro",
+    "ano": 2018
+  },
+  {
+    "marca": "Chevrolet",
+    "modelo": "Impala",
+    "matricula": "FZP-9427",
+    "color": "Blanco",
+    "ano": 2018
+  },
+  {
+    "marca": "Chevrolet",
+    "modelo": "Impala",
+    "matricula": "HTY-5749",
+    "color": "Azul",
+    "ano": 2018
+  },
+  {
+    "marca": "Chevrolet",
+    "modelo": "Impala",
+    "matricula": "PLK-8320",
+    "color": "Rojo",
+    "ano": 2018
+  },
+  {
+    "marca": "Chevrolet",
+    "modelo": "Malibu",
+    "matricula": "NXD-7463",
+    "color": "Gris",
+    "ano": 2018
+  },
+  {
+    "marca": "Nissan",
+    "modelo": "Altima",
+    "matricula": "MBT-4752",
+    "color": "Gris",
+    "ano": 2021
+  },
+  {
+    "marca": "Nissan",
+    "modelo": "Sentra",
+    "matricula": "KLP-1937",
+    "color": "Negro",
+    "ano": 2022
+  },
+  {
+    "marca": "Nissan",
+    "modelo": "Sentra",
+    "matricula": "FYW-8391",
+    "color": "Blanco",
+    "ano": 2022
+  },
+  {
+    "marca": "Nissan",
+    "modelo": "Sentra",
+    "matricula": "QRS-2981",
+    "color": "Azul",
+    "ano": 2022
+  },
+  {
+    "marca": "Nissan",
+    "modelo": "Sentra",
+    "matricula": "WZT-5723",
+    "color": "Rojo",
+    "ano": 2022
+  },
+  {
+    "marca": "Nissan",
+    "modelo": "Altima",
+    "matricula": "DPL-3917",
+    "color": "Gris",
+    "ano": 2022
+  },
+  {
+    "marca": "Hyundai",
+    "modelo": "Elantra",
+    "matricula": "QLM-4721",
+    "color": "Blanco",
+    "ano": 2017
+  },
+  {
+    "marca": "Hyundai",
+    "modelo": "Tucson",
+    "matricula": "ZMN-5738",
+    "color": "Negro",
+    "ano": 2023
+  },
+  {
+    "marca": "Hyundai",
+    "modelo": "Tucson",
+    "matricula": "KJT-3482",
+    "color": "Blanco",
+    "ano": 2023
+  },
+  {
+    "marca": "Hyundai",
+    "modelo": "Tucson",
+    "matricula": "BWS-7294",
+    "color": "Azul",
+    "ano": 2023
+  },
+  {
+    "marca": "Hyundai",
+    "modelo": "Tucson",
+    "matricula": "QPR-4823",
+    "color": "Rojo",
+    "ano": 2023
+  },
+  {
+    "marca": "Hyundai",
+    "modelo": "Elantra",
+    "matricula": "JLS-1829",
+    "color": "Gris",
+    "ano": 2023
+  }
+]

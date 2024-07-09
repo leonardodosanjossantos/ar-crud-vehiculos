@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0"/>
+    <title>Vehiculos CRUD</title>
+
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+          integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+
+<body>
+<div th:replace="fragments/header :: header"></div>
+
+<div class="container-fluid">
+
+    <div id="alertContainer" class="mt-3"></div>
+
+    <div class="container mt-3 mb-3">
+        <form th:action="@{/vehiculos}" id="searchForm">
+            <div class="row justify-content-center mb-3">
+                <div class="col-auto">
+                    <input id="marca" type="search" name="marca" th:value="${marca}"
+                           class="form-control" placeholder="Marca">
+                </div>
+                <div class="col-auto">
+                    <input id="modelo" type="search" name="modelo" th:value="${modelo}"
+                           class="form-control" placeholder="Modelo">
+                </div>
+                <div class="col-auto">
+                    <input id="matricula" type="search" name="matricula" th:value="${matricula}"
+                           class="form-control" placeholder="Matricula">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-secondary">Busca</button>
+                </div>
+                <div class="col-auto">
+                    <a class="btn btn-primary" href="#" data-bs-toggle="modal" data-bs-target="#createModal">Registrar Nuevo Vehículo</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div th:if="${vehiculos.size() > 0}">
+        <table class="table table-hover table-responsive-xl table-striped">
+            <thead class="thead-light .table-light">
+            <tr>
+                <th th:replace="fragments/sorting :: sorting('marca','Marca')"></th>
+                <th th:replace="fragments/sorting :: sorting('modelo','Modelo')"></th>
+                <th th:replace="fragments/sorting :: sorting('matricula','Matricula')"></th>
+                <th th:replace="fragments/sorting :: sorting('color','Color')"></th>
+                <th th:replace="fragments/sorting :: sorting('ano','Año')"></th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="vehiculo : ${vehiculos}">
+                <td>[[${vehiculo.marca}]]</td>
+                <td>[[${vehiculo.modelo}]]</td>
+                <td>[[${vehiculo.matricula}]]</td>
+                <td>[[${vehiculo.color}]]</td>
+                <td>[[${vehiculo.ano}]]</td>
+                <td>
+                    <a href="#" title="Editar Vehiculo" class="fa-regular fa-pen-to-square icon-dark"
+                       th:data-bs-id="${vehiculo.id}" th:data-bs-marca="${vehiculo.marca}" th:data-bs-modelo="${vehiculo.modelo}"
+                       th:data-bs-matricula="${vehiculo.matricula}" th:data-bs-color="${vehiculo.color}"
+                       th:data-bs-ano="${vehiculo.ano}" data-bs-toggle="modal" data-bs-target="#editModal"></a>
+                </td>
+                <td>
+                    <a href="#" id="btnDelete" title="Borrar Vehiculo" class="fa-regular fa-trash-can icon-dark btn-delete"
+                       th:data-bs-id="${vehiculo.id}" th:data-bs-matricula="${vehiculo.matricula}" data-bs-toggle="modal" data-bs-target="#deleteModal"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div th:unless="${vehiculos.size() > 0}">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <span>Lista de Vehiculos vacía!</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <nav class="mt-3" aria-label="Pagination" th:if="${totalPages > 0}">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage == 1} ? 'disabled'">
+                <a th:replace="fragments/paging :: paging(1, '<<', 'First Page')"></a>
+            </li>
+            <li class="page-item font-weight-bold" th:classappend="${currentPage == 1} ? 'disabled'">
+                <a th:replace="fragments/paging :: paging(${currentPage - 1}, 'Prev', 'Previous Page')"></a>
+            </li>
+            <li class="page-item disabled" th:if="${currentPage - 2 > 1}">
+                <a class="page-link" href="#">...</a>
+            </li>
+            <li class="page-item" th:classappend="${page == currentPage} ? 'active'"
+                th:each="page : ${#numbers.sequence(currentPage > 2 ? currentPage - 2 : 1, currentPage + 2 < totalPages ? currentPage + 2 : totalPages)}">
+                <a th:replace="fragments/paging :: paging(${page}, ${page}, 'Page ' + ${page})"></a>
+            </li>
+            <li class="page-item disabled" th:if="${currentPage + 2 < totalPages}">
+                <a class="page-link" href="#">...</a>
+            </li>
+            <li class="page-item font-weight-bold" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <a th:replace="fragments/paging :: paging(${currentPage + 1},'Next', 'Next Page')"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage == totalPages} ? 'disabled'">
+                <a th:replace="fragments/paging :: paging(${totalPages}, '>>', 'Last Page')"></a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="newVehiculoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="newVehiculoLabel">Nuevo Vehiculo</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="create-modal-errors"></div>
+                <form>
+                    <div class="mb-3">
+                        <label for="marca-modal" class="col-form-label">Marca:</label>
+                        <input type="text" class="form-control" id="marca-modal" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="modelo-modal" class="col-form-label">Modelo:</label>
+                        <input type="text" class="form-control" id="modelo-modal" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="matricula-modal" class="col-form-label">Matricula:</label>
+                        <input type="text" class="form-control" id="matricula-modal" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="color-modal" class="col-form-label">Color:</label>
+                        <input type="text" class="form-control" id="color-modal" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="ano-modal" class="col-form-label">Año:</label>
+                        <input type="text" class="form-control" id="ano-modal" >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary" id="createVehiculo">Crear Vehiculo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editVehiculoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="editVehiculoLabel">Vehiculo</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="edit-modal-errors"></div>
+                <form>
+                    <div class="mb-3">
+                        <label for="marca-modal" class="col-form-label">Marca:</label>
+                        <input type="text" class="form-control" id="edit-marca-modal" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-modelo-modal" class="col-form-label">Modelo:</label>
+                        <input type="text" class="form-control" id="edit-modelo-modal" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-matricula-modal" class="col-form-label">Matricula:</label>
+                        <input type="text" class="form-control" id="edit-matricula-modal" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="edit-color-modal" class="col-form-label">Color:</label>
+                        <input type="text" class="form-control" id="edit-color-modal" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="ano-modal" class="col-form-label">Año:</label>
+                        <input type="text" class="form-control" id="edit-ano-modal" >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="editVehiculo">Editar Vehiculo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteVehiculoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteVehiculoLabel">Borrar Vehiculo</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p>¿Estás seguro de que deseas borrar este vehículo?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="deleteVehiculo">Borrar Vehiculo</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('#deleteModal').on('show.bs.modal', function (event) {
+            const button = event.relatedTarget
+            var id = button.getAttribute('data-bs-id')
+            var matricula = button.getAttribute('data-bs-matricula')
+
+            $('#deleteVehiculoLabel').text('Borrar Vehiculo ' + matricula);
+
+            $('#deleteVehiculo').click(function() {
+                var url = '/vehiculo/delete/' + id;
+                $.ajax({
+                    url: url,
+                    type: 'DELETE',
+                    success: function(data) {
+                        $('#deleteModal').modal('hide');
+                        showAlert('Vehículo eliminado exitosamente', 'success');
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+
+                    }
+                });
+            });
+        })
+
+        $('#editModal').on('show.bs.modal', function (event) {
+            $('#edit-modal-errors').html('');
+
+            const button = event.relatedTarget
+            var id = button.getAttribute('data-bs-id')
+            var marca = button.getAttribute('data-bs-marca')
+            var modelo = button.getAttribute('data-bs-modelo')
+            var matricula = button.getAttribute('data-bs-matricula')
+            var color = button.getAttribute('data-bs-color')
+            var ano = button.getAttribute('data-bs-ano')
+
+            $('#edit-marca-modal').val(marca);
+            $('#edit-modelo-modal').val(modelo);
+            $('#edit-matricula-modal').val(matricula);
+            $('#edit-color-modal').val(color);
+            $('#edit-ano-modal').val(ano);
+
+            $('#editVehiculoLabel').text('Editar Vehiculo ' + matricula);
+
+            $('#editVehiculo').click(function() {
+
+                var url = '/vehiculo/edit/' + id;
+                var data = {
+                    marca: $('#edit-marca-modal').val(),
+                    modelo: $('#edit-modelo-modal').val(),
+                    matricula: $('#edit-matricula-modal').val(),
+                    color: $('#edit-color-modal').val(),
+                    ano: $('#edit-ano-modal').val()
+                };
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data),
+                    success: function(data) {
+                        clearForm();
+                        $('#editModal').modal('hide');
+                        showAlert('Vehículo alterado exitosamente', 'success');
+                    },
+                    error: function(data) {
+                        var arrayData = data.responseJSON;
+                        var alertHtml = `
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                Por favor corrija los siguientes campos:
+                                <ul>
+                                    ${arrayData.map(text => `<li>${text}</li>`).join('')}
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        `;
+                        $('#edit-modal-errors').html(alertHtml);
+                    }
+                });
+            });
+        })
+
+        $('#createModal').on('show.bs.modal', function (event) {
+            $('#create-modal-errors').html('');
+            $('#createVehiculo').click(function() {
+                var url = '/vehiculo/create';
+                var data = {
+                    marca: $('#marca-modal').val(),
+                    modelo: $('#modelo-modal').val(),
+                    matricula: $('#matricula-modal').val(),
+                    color: $('#color-modal').val(),
+                    ano: $('#ano-modal').val()
+                };
+
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify(data),
+                    success: function(data) {
+                        clearForm();
+                        $('#createModal').modal('hide');
+                        showAlert('Vehículo agregado exitosamente', 'success');
+                    },
+                    error: function(data) {
+                        var arrayData = data.responseJSON;
+                        var alertHtml = `
+                            <div class="alert alert-danger alert-dismissible" role="alert">
+                                Por favor corrija los siguientes campos:
+                                <ul>
+                                    ${arrayData.map(text => `<li>${text}</li>`).join('')}
+                                </ul>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        `;
+                        $('#create-modal-errors').html(alertHtml);
+                    }
+                });
+            });
+        })
+
+        function showAlert(message, type) {
+            var alertHtml = `
+                <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                    ${message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            `;
+            $('#alertContainer').html(alertHtml);
+            setTimeout(function() {
+                $('#alertContainer').alert('close');
+            }, 3000);
+        }
+
+        function clearForm() {
+            $('#marca-modal').val('');
+            $('#modelo-modal').val('');
+            $('#matricula-modal').val('');
+            $('#color-modal').val('');
+            $('#ano-modal').val('');
+
+
+            $('#edit-marca-modal').val('');
+            $('#edit-modelo-modal').val('');
+            $('#edit-matricula-modal').val('');
+            $('#edit-color-modal').val('');
+            $('#edit-ano-modal').val('');
+            $('#editVehiculoLabel').text('Vehiculo');
+        }
+
+    });
+</script>
+</body>
+</html>

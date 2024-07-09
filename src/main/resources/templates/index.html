@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Vehiculos</title>
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container my-2" align="center">
+
+    <h3>Vehiculos List</h3>
+    <!--<a th:href="@{/addnew}" class="btn btn-primary btn-sm mb-3" >Add Vehiculo</a>-->
+    <table style="width:80%" border="1"
+           class = "table table-striped table-responsive-md">
+        <thead>
+        <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Matrícula</th>
+            <th>Color</th>
+            <th>Año</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="vehiculo:${vehiculos}">
+            <td th:text="${vehiculo.marca}"></td>
+            <td th:text="${vehiculo.modelo}"></td>
+            <td th:text="${vehiculo.matricula}"></td>
+            <td th:text="${vehiculo.color}"></td>
+            <td th:text="${vehiculo.ano}"></td>
+            <!--<td> <a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}"
+                    class="btn btn-primary">Update</a>
+                <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}"
+                   class="btn btn-danger">Delete</a>
+            </td>-->
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${vehiculos.totalPages > 0}" class="pagination"
+         th:each="pageNumber : ${pageNumbers}">
+        <a th:href="@{/listVehiculos(page=${pageNumber)}"
+           th:text=${pageNumber}
+           th:class="${pageNumber==vehiculos.number + 1} ? active"></a>
+    </div>
+</div>
+</body>
+</html>
